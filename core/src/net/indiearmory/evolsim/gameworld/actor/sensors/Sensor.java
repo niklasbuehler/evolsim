@@ -1,4 +1,4 @@
-package net.indiearmory.evolidle.gameworld.blob.sensors;
+package net.indiearmory.evolsim.gameworld.actor.sensors;
 
 /**
  * Created by niklas on 02.10.17.

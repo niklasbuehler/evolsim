@@ -1,4 +1,4 @@
-package net.indiearmory.evolidle.gameworld.blob.brain;
+package net.indiearmory.evolsim.gameworld.actor.brain;
 
 /**
  * Created by niklas on 02.10.17.
@@ -20,11 +20,6 @@ public class MovementBrainPart extends BrainPart {
         // 6 hidden nodes
         // 1 output node which controlls angle of acceleration
         super(sight_outputCount, 6, 1);
-    }
-
-    public float[] query(float[] sightRays){
-        // TODO query network and return angle
-        return null;
     }
 
 }
