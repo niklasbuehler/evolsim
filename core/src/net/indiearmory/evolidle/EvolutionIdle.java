@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import net.indiearmory.evolidle.gameworld.blob.Blob;
 
+import java.util.Random;
+
 public class EvolutionIdle extends ApplicationAdapter {
+	private static Random random = new Random();
 
 	OrthographicCamera orthographicCamera;
 	ShapeRenderer shapeRenderer;
@@ -38,7 +41,7 @@ public class EvolutionIdle extends ApplicationAdapter {
 		orthographicCamera.update();
 		shapeRenderer.setProjectionMatrix(orthographicCamera.combined);
 
-		// DO drawing
+		// Do drawing
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		game.draw(shapeRenderer);
 		shapeRenderer.end();
@@ -55,5 +58,13 @@ public class EvolutionIdle extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		shapeRenderer.dispose();
+	}
+
+	public static int randInt(int min, int max) {
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		int randomNum = random.nextInt((max - min) + 1) + min;
+
+		return randomNum;
 	}
 }

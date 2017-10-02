@@ -13,6 +13,9 @@ import java.util.ArrayList;
  * Copyright (c) 2017 IndieArmory
  */
 
+/**
+ * This class contains all game models and handles updating these.
+ */
 public class GameWorld {
     public static Rectangle RECT = new Rectangle(0, 0, Config.WIDTH, Config.HEIGHT);
 

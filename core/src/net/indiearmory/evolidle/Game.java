@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  * Copyright (c) 2017 IndieArmory
  */
 
+/**
+ * This class contains all the specific game data and objects.
+ */
 public class Game {
     public static Game currentGame;
 

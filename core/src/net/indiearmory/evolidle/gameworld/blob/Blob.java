@@ -10,6 +10,11 @@ import net.indiearmory.evolidle.gameworld.blob.brain.Brain;
  * Copyright (c) 2017 IndieArmory
  */
 
+/**
+ * This is the "player" object, although it is not controlled by
+ * the player directly. The player will influence it indirectly by affecting
+ * its sensors and brains.
+ */
 public class Blob extends GameModel {
 
     Brain brain;
@@ -20,10 +25,10 @@ public class Blob extends GameModel {
 
     public void update(){
         super.update();
-        // TODO movement etc
+        brain.update();
     }
 
     protected void die(){
-        // TODO
+        // TODO genetics, respawning, etc
     }
 }

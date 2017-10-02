@@ -1,6 +1,7 @@
 package net.indiearmory.evolidle.gameworld.blob.brain;
 
-import java.util.ArrayList;
+import net.indiearmory.evolidle.gameworld.blob.sensors.Sensor;
+import net.indiearmory.evolidle.gameworld.blob.sensors.SightSensor;
 
 /**
  * Created by niklas on 02.10.17.
@@ -8,17 +9,25 @@ import java.util.ArrayList;
  */
 
 /**
- * The Brain class contains several neural networks, the
- * brain parts, and handles input/output, as well as networking
- * between those networks. This is the interface between sensors
- * and motors.
+ * The Brain class contains sensors and several neural networks
+ * and acts as interface between those.
+ * It handles input/output, as well as networking between
+ * the different networks.
  */
 public class Brain {
 
-    private BrainPart visualBrainPart;
+    SightSensor sightSensor;
+    MovementBrainPart movementBrainPart;
+    // TODO Movement motor
 
     public Brain(){
-        // visualBrainPart = new BrainPart(); // TODO
+        sightSensor = new SightSensor();
+        movementBrainPart = new MovementBrainPart(sightSensor.getOutputCount());
     }
 
+    public void update(){
+        float[] sightData = sightSensor.query();
+        float[] movementOutput = movementBrainPart.query(sightData);
+        // TODO send movementOutput -> blob.motor
+    }
 }

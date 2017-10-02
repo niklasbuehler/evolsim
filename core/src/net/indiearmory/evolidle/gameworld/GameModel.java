@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  * Copyright (c) 2017 IndieArmory
  */
 
+/**
+ * The basic game model used in the game world by all entities.
+ */
 public abstract class GameModel {
     protected float x, y;
     protected float radius;
