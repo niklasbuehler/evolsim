@@ -5,15 +5,18 @@ package net.indiearmory.evolsim.gameworld.actor.sensors;
  * Copyright (c) 2017 IndieArmory
  */
 
+import net.indiearmory.evolsim.gameworld.GameModel;
+
 /**
  * The blueprint class for all types of sensors.
  */
 public abstract class Sensor {
 
+    GameModel owner;
     protected int outputCount;
 
-    public Sensor(){
-
+    public Sensor(GameModel owner){
+        this.owner = owner;
     }
 
     public abstract float[] query();

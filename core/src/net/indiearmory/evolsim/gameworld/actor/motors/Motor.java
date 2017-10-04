@@ -1,5 +1,7 @@
 package net.indiearmory.evolsim.gameworld.actor.motors;
 
+import net.indiearmory.evolsim.gameworld.GameModel;
+
 /**
  * Created by niklas on 02.10.17.
  * Copyright (c) 2017 IndieArmory
@@ -7,16 +9,12 @@ package net.indiearmory.evolsim.gameworld.actor.motors;
 
 public abstract class Motor {
 
+    GameModel owner;
     protected int inputCount;
 
-    public Motor(){
-
+    public Motor(GameModel owner){
+        this.owner = owner;
     }
-
-    /**
-     * Called every tick. No changes are applied here.
-     */
-    public abstract void update();
 
     /**
      * Called by brain to change parameters and influence

@@ -5,6 +5,8 @@ package net.indiearmory.evolsim.gameworld.actor.brain;
  * Copyright (c) 2017 IndieArmory
  */
 
+import net.indiearmory.evolsim.gameworld.GameModel;
+
 /**
  * This neural network takes sight as input and returns
  * an angle for changing the velocity as output.
@@ -15,11 +17,11 @@ package net.indiearmory.evolsim.gameworld.actor.brain;
  */
 public class MovementBrainPart extends BrainPart {
 
-    public MovementBrainPart(int sight_outputCount){
+    public MovementBrainPart(GameModel owner, int sight_outputCount){
         // input nodes are determined by sightsensor
         // 6 hidden nodes
         // 1 output node which controlls angle of acceleration
-        super(sight_outputCount, 6, 1);
+        super(owner, sight_outputCount, 6, 1);
     }
 
 }
