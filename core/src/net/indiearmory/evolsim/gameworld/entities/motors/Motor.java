@@ -1,6 +1,6 @@
-package net.indiearmory.evolsim.gameworld.actor.motors;
+package net.indiearmory.evolsim.gameworld.entities.motors;
 
-import net.indiearmory.evolsim.gameworld.GameModel;
+import net.indiearmory.evolsim.gameworld.entities.Entity;
 
 /**
  * Created by niklas on 02.10.17.
@@ -9,10 +9,10 @@ import net.indiearmory.evolsim.gameworld.GameModel;
 
 public abstract class Motor {
 
-    GameModel owner;
+    Entity owner;
     protected int inputCount;
 
-    public Motor(GameModel owner){
+    public Motor(Entity owner){
         this.owner = owner;
     }
 

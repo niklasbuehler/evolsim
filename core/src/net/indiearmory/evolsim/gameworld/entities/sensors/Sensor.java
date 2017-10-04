@@ -1,4 +1,4 @@
-package net.indiearmory.evolsim.gameworld.actor.sensors;
+package net.indiearmory.evolsim.gameworld.entities.sensors;
 
 /**
  * Created by niklas on 02.10.17.
@@ -24,4 +24,5 @@ public abstract class Sensor {
     public int getOutputCount(){
         return outputCount;
     }
+
 }
