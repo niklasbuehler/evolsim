@@ -26,7 +26,10 @@ public class DNASequence {
     public void addWeights(float[] weights){
         for(int i=0; i<weights.length; i++){
             if(EvolSim.randInt(1, 1000) <= mutationChanceMilli){
+                // mutate
                 weights[i] = getRandomWeightValue();
+                // also change color a little bit
+                // TODO change hue of color a little bit
             }
         }
         this.weights.add(weights);

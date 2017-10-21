@@ -55,7 +55,7 @@ public class DNA {
             }
             newDNA.addSequence(newSequence);
         }
-        // TODO also mix colors of entities for visualization of spreading of one DNA
+        // TODO mix colors of entities to visualize spread of DNA
         return newDNA;
     }
 
