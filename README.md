@@ -1,5 +1,5 @@
 # evol sim
-[Android App]
+[Desktop/Android App]
 Simulating the evolution of virtual populations. Neural networks handle machine learning for each individual, genetic algorithms handle evolution for the whole species.
 
 Multiple populations of virtual entities share the same virtual biome and interact with each other and their environment.
