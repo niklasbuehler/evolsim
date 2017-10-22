@@ -1,6 +1,10 @@
 package net.indiearmory.evolsim.gameworld.entities.sensors;
 
+import com.badlogic.gdx.graphics.Color;
+
+import net.indiearmory.evolsim.ColorUtils;
 import net.indiearmory.evolsim.gameworld.GameModel;
+import net.indiearmory.evolsim.gameworld.entities.Entity;
 
 /**
  * Created by niklas on 21.10.17.
@@ -9,10 +13,10 @@ import net.indiearmory.evolsim.gameworld.GameModel;
 
 public class VitalSensor extends Sensor {
 
-    public VitalSensor(GameModel owner){
+    public VitalSensor(Entity owner){
         super(owner);
 
-        outputCount = 1;
+        outputCount = 2;
     }
 
     /**
@@ -23,7 +27,10 @@ public class VitalSensor extends Sensor {
     public float[] query(){
         float[] output = new float[outputCount];
         output[0] = owner.getRadius();
-        // TODO collect more data
+        output[1] = ColorUtils.getHue(owner.getColor());
+
+        // TODO collect and provide more internal data
+        
         return output;
     }
 }

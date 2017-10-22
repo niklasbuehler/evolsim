@@ -3,6 +3,7 @@ package net.indiearmory.evolsim.gameworld.entities.sensors;
 import com.badlogic.gdx.math.Vector2;
 
 import net.indiearmory.evolsim.gameworld.GameModel;
+import net.indiearmory.evolsim.gameworld.entities.Entity;
 
 /**
  * Created by niklas on 02.10.17.
@@ -11,14 +12,14 @@ import net.indiearmory.evolsim.gameworld.GameModel;
 
 public class SightSensor extends Sensor {
 
-    // e.g.: a maxSightAngle of 10° equals a field of view of 20°
+    // e.g.: a maxSightAngle of 10° equals a field of vision of 20°
     private float maxSightAngle = 20;
-    private float maxSightRange = 400;
-    private float sightSensivity = 1000f;
+    private float maxSightRange = 200;
+    private float sightSensivity = 1f;
 
-    private int nr_sightRays = 3;
+    private int nr_sightRays = 5;
 
-    public SightSensor(GameModel owner){
+    public SightSensor(Entity owner){
         super(owner);
 
         // Each sight ray feeds two nodes:
@@ -38,7 +39,7 @@ public class SightSensor extends Sensor {
      * ray2_color
      * @return float[] distances to objects, color of objects
      */
-    // TODO clean this mess up
+    // TODO clean this mess up: multiple functions?
     public float[] query(){
         float[] output = new float[outputCount];
         // Loop through all sight rays
@@ -61,7 +62,7 @@ public class SightSensor extends Sensor {
                     // Save distance
                     output[sightRayNr*2] = calculateSightValue(sightDist);
                     // Save color hue
-                    output[sightRayNr*2+1] = hueAtPosition; // TODO maybe recalculate this (between -1, 1)
+                    output[sightRayNr*2+1] = hueAtPosition;
                     break single_ray_loop;
                 }else{
                     // Nothing seen at all for this ray & object type -> return max value

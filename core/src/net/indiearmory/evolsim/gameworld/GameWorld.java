@@ -26,25 +26,33 @@ public class GameWorld {
     // A rectangle representing the outer bounds of the world
     public static Rectangle RECT = new Rectangle(0, 0, Config.WIDTH, Config.HEIGHT);
     // The number of populations
-    public static int basePopulationCount = 4;
+    public static int basePopulationCount = 2;
+    // The number of free food at start
+    public static int baseFoodCount = 1000;
     // Populations containing all entities
     public ArrayList<Population> populations;
-    // Food which does not move, is filled when entitites die, so no mass is lost
+    // Food which does not move, is filled when entities die, so no mass is lost
     public ArrayList<Food> food;
 
     public GameWorld(){
         populations = new ArrayList<Population>();
         for(int i=0; i<basePopulationCount; i++){
-            populations.add(new Population(this));
+            populations.add(new Population(this, EvolSim.randInt(0, Config.WIDTH), EvolSim.randInt(0, Config.HEIGHT)));
         }
 
         food = new ArrayList<Food>();
+        for(int i=0; i<baseFoodCount; i++){
+            createFood();
+        }
     }
 
     public void update(){
         for(int i=0; i<populations.size(); i++){
             populations.get(i).update();
         }
+
+        // Randomly spawning new populations
+        if(EvolSim.randInt(1, 3000) == 1) populations.add(new Population(this, EvolSim.randInt(0, Config.WIDTH), EvolSim.randInt(0, Config.HEIGHT)));
     }
 
     public void draw(ShapeRenderer shapeRenderer){
@@ -80,9 +88,8 @@ public class GameWorld {
         for(int i=0; i<populations.size(); i++){
             for(int j=0; j<populations.get(i).entities.size(); j++){
                 if(populations.get(i).entities.get(j).contains(positionToCheck)){
-                    Color foundColor = populations.get(i).baseColor;
-                    float hue = (float) ColorUtils.RGB_to_HSV(foundColor.r, foundColor.g, foundColor.b)[0];
-                    return hue;
+                    Color foundColor = populations.get(i).entities.get(j).getColor();
+                    return ColorUtils.getHue(foundColor);
                 }
             }
         }

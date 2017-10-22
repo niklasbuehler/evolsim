@@ -7,6 +7,7 @@ package net.indiearmory.evolsim.gameworld.entities.genetics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 import net.indiearmory.evolsim.Config;
 import net.indiearmory.evolsim.EvolSim;
@@ -21,12 +22,14 @@ import java.util.ArrayList;
  */
 public class Population {
     // The base radius for all populations at which the entitites start
-    public static int baseRadius = 5;
+    public static int baseRadius = (int) (2*Entity.minimumRadius);
     // The amount of entities per newly spawned population
-    public static int baseEntityCount = 25;
+    public static int baseEntityCount = 100;
 
     // A unique ID, which represents the species (created from timestamp).
     public final long ID = System.currentTimeMillis();
+    // The point where all entities of this species originate from
+    Vector2 origin;
     // This populations base color
     public Color baseColor;
     // Reference of the world
@@ -34,19 +37,19 @@ public class Population {
     // List of all entities of this population
     public ArrayList<Entity> entities;
 
-    public Population(GameWorld gameWorld){
+    public Population(GameWorld gameWorld, int originX, int originY){
         this.gameWorld = gameWorld;
-
+        this.origin = new Vector2(originX, originY);
         this.baseColor = EvolSim.getRandomColor();
 
         entities = new ArrayList<Entity>();
         for(int i=0; i<baseEntityCount; i++){
-            createNewEntity(baseRadius);
+            createNewEntity(origin.x, origin.y, baseRadius);
         }
     }
 
-    public void createNewEntity(float radius){
-        entities.add(new Entity(gameWorld, this, EvolSim.randInt(0, Config.WIDTH), EvolSim.randInt(0, Config.HEIGHT), radius, baseColor));
+    public void createNewEntity(float x, float y, float radius){
+        entities.add(new Entity(gameWorld, this, x, y, radius, baseColor));
     }
 
     public void update(){

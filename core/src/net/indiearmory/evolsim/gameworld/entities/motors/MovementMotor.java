@@ -3,7 +3,6 @@ package net.indiearmory.evolsim.gameworld.entities.motors;
 import com.badlogic.gdx.math.Vector2;
 
 import net.indiearmory.evolsim.gameworld.entities.Entity;
-import net.indiearmory.evolsim.gameworld.entities.brain.MovementBrainPart;
 
 /**
  * Created by niklas on 02.10.17.
@@ -12,11 +11,11 @@ import net.indiearmory.evolsim.gameworld.entities.brain.MovementBrainPart;
 
 public class MovementMotor extends Motor {
 
-    float maxAcceleration = .25f;
+    float maxAcceleration = .125f;
 
     public MovementMotor(Entity owner){
         super(owner);
-        inputCount = MovementBrainPart.outputCount;
+        inputCount = 2;
     }
 
     public void control(float[] movementData){

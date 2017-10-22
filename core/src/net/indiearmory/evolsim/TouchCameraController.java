@@ -11,11 +11,11 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 // TODO add option to follow an entity
-public class CameraController implements GestureDetector.GestureListener {
+public class TouchCameraController implements GestureDetector.GestureListener {
 
     OrthographicCamera orthographicCamera;
 
-    public CameraController(OrthographicCamera orthographicCamera){
+    public TouchCameraController(OrthographicCamera orthographicCamera){
         this.orthographicCamera = orthographicCamera;
     }
 

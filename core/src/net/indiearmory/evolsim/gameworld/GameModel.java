@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import net.indiearmory.evolsim.Config;
 import net.indiearmory.evolsim.gameworld.entities.Entity;
+import net.indiearmory.evolsim.gameworld.entities.genetics.Population;
 
 /**
  * Created by niklas on 02.10.17.
@@ -61,7 +62,7 @@ public abstract class GameModel {
         // Remove acceleration
         acceleration.limit(0);
         // Also add some small resistance to limit impulses and max speed too
-        // TODO (Based on weight = radius)
+        // TODO Base resistance on radius
         velocity.scl(.9f);
     }
 
@@ -102,6 +103,10 @@ public abstract class GameModel {
 
     public Vector2 getPosition(){
         return new Vector2(x, y);
+    }
+
+    public Color getColor(){
+        return color;
     }
 
     public GameWorld getGameWorld(){

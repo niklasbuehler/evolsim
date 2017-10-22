@@ -5,17 +5,17 @@ package net.indiearmory.evolsim.gameworld.entities.sensors;
  * Copyright (c) 2017 IndieArmory
  */
 
-import net.indiearmory.evolsim.gameworld.GameModel;
+import net.indiearmory.evolsim.gameworld.entities.Entity;
 
 /**
  * The blueprint class for all types of sensors.
  */
 public abstract class Sensor {
 
-    GameModel owner;
+    Entity owner;
     protected int outputCount;
 
-    public Sensor(GameModel owner){
+    public Sensor(Entity owner){
         this.owner = owner;
     }
 

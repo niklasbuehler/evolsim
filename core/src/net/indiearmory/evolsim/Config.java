@@ -10,6 +10,6 @@ package net.indiearmory.evolsim;
  * can be used from every point of the code.
  */
 public class Config {
-    public static int WIDTH = 960;
-    public static int HEIGHT = 1600;
+    public static int WIDTH = 1920/2; // = 960;
+    public static int HEIGHT = 1080/2; // = 1600;
 }

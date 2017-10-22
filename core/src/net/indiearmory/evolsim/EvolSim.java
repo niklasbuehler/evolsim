@@ -2,7 +2,6 @@ package net.indiearmory.evolsim;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,8 +25,11 @@ public class EvolSim extends ApplicationAdapter {
 		orthographicCamera = new OrthographicCamera(width, height);
 		orthographicCamera.position.set(width/2, height/2, 0);
 
-        CameraController cameraController = new CameraController(orthographicCamera);
-		Gdx.input.setInputProcessor(new GestureDetector(cameraController));
+		// For android devices:
+        // TouchCameraController touchCameraController = new TouchCameraController(orthographicCamera);
+		//Gdx.input.setInputProcessor(new GestureDetector(touchCameraController));
+		// For desktop devices:
+		Gdx.input.setInputProcessor(new DesktopCameraController(orthographicCamera));
 
 		shapeRenderer = new ShapeRenderer();
 
@@ -75,8 +77,9 @@ public class EvolSim extends ApplicationAdapter {
      * Can't use java.awt.Color because that isn't supported by Android.
      * @return
      */
+    // FIXME not distict
     public static Color getRandomColor(){
-        float hue = EvolSim.randInt(0, 360);
-        return ColorUtils.HSV_to_RGB(hue, 100f, 100f);
+        float hue = EvolSim.randInt(0, 1000) / 1000f;
+        return ColorUtils.HSBtoColor(hue, 1f, 1f);
     }
 }

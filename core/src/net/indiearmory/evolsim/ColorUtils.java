@@ -1,125 +1,138 @@
-/*******************************************************************************
- * Copyright 2014 Pawel Pastuszak
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
-
 package net.indiearmory.evolsim;
 
 import com.badlogic.gdx.graphics.Color;
 
 public class ColorUtils {
-    /** Converts HSV color sytem to RGB
-     *
-     * @return RGB values in Libgdx Color class
-     */
-    public static Color HSV_to_RGB (float h, float s, float v) {
-        int r, g, b;
-        int i;
-        float f, p, q, t;
-        h = (float)Math.max(0.0, Math.min(360.0, h));
-        s = (float)Math.max(0.0, Math.min(100.0, s));
-        v = (float)Math.max(0.0, Math.min(100.0, v));
-        s /= 100;
-        v /= 100;
 
-        h /= 60;
-        i = (int)Math.floor(h);
-        f = h - i;
-        p = v * (1 - s);
-        q = v * (1 - s * f);
-        t = v * (1 - s * (1 - f));
-        switch (i) {
-            case 0:
-                r = Math.round(255 * v);
-                g = Math.round(255 * t);
-                b = Math.round(255 * p);
-                break;
-            case 1:
-                r = Math.round(255 * q);
-                g = Math.round(255 * v);
-                b = Math.round(255 * p);
-                break;
-            case 2:
-                r = Math.round(255 * p);
-                g = Math.round(255 * v);
-                b = Math.round(255 * t);
-                break;
-            case 3:
-                r = Math.round(255 * p);
-                g = Math.round(255 * q);
-                b = Math.round(255 * v);
-                break;
-            case 4:
-                r = Math.round(255 * t);
-                g = Math.round(255 * p);
-                b = Math.round(255 * v);
-                break;
-            default:
-                r = Math.round(255 * v);
-                g = Math.round(255 * p);
-                b = Math.round(255 * q);
-        }
-        return new Color(r / 255.0f, g / 255.0f, b / 255.0f, 1);
+    /**
+     * Returns the colors hue in range [0, 360].
+     * @param color
+     * @return hue in range [0, 360]
+     */
+    public static float getHue(Color color){
+        float[] hsbvals = RGBtoHSB((int) (255*color.r), (int) (255*color.g), (int) (255*color.b));
+        return hsbvals[0];
     }
 
     /**
-     * Takes r,g,b in range [0,1].
-     * @param r
-     * @param g
-     * @param b
-     * @return hue in range [0,1].
+     * Copied from java.awt.Color class:
+     * Converts the components of a color, as specified by the HSB
+     * model, to an equivalent set of values for the default RGB model.
+     * <p>
+     * The <code>saturation</code> and <code>brightness</code> components
+     * should be floating-point values between zero and one
+     * (numbers in the range 0.0-1.0).  The <code>hue</code> component
+     * can be any floating-point number.  The floor of this number is
+     * subtracted from it to create a fraction between 0 and 1.  This
+     * fractional number is then multiplied by 360 to produce the hue
+     * angle in the HSB color model.
+     * <p>
+     * The integer that is returned by <code>HSBtoRGB</code> encodes the
+     * value of a color in bits 0-23 of an integer value that is the same
+     * format used by the method {@link #getRGB() <code>getRGB</code>}.
+     * This integer can be supplied as an argument to the
+     * <code>Color</code> constructor that takes a single integer argument.
+     * @param     hue   the hue component of the color
+     * @param     saturation   the saturation of the color
+     * @param     brightness   the brightness of the color
+     * @return    LibGDX Color object
      */
-    public static double[] RGB_to_HSV(float r, float g, float b){
-        double R = r;
-        double G = g;
-        double B = b;
-
-        double min = Math.min(Math.min(R, G), B);
-        double max = Math.max(Math.max(R, G), B);
-        double delta = max - min;
-
-        double H = max;
-        double S = max;
-        double V = max;
-
-        if(delta == 0){
-            H = 0;
-            S = 0;
-        }else{
-            S = delta / max;
-
-            double delR = ( ( ( max - R ) / 6 ) + ( delta / 2 ) ) / delta;
-            double delG = ( ( ( max - G ) / 6 ) + ( delta / 2 ) ) / delta;
-            double delB = ( ( ( max - B ) / 6 ) + ( delta / 2 ) ) / delta;
-
-            if(R == max){
-                H = delB - delG;
-            }else if(G == max){
-                H = (1/3) + delR - delB;
-            }else if(B == max){
-                H = (2/3) + delG - delR;
+    public static Color HSBtoColor(float hue, float saturation, float brightness) {
+        int r = 0, g = 0, b = 0;
+        if (saturation == 0) {
+            r = g = b = (int) (brightness * 255.0f + 0.5f);
+        } else {
+            float h = (hue - (float)Math.floor(hue)) * 6.0f;
+            float f = h - (float)java.lang.Math.floor(h);
+            float p = brightness * (1.0f - saturation);
+            float q = brightness * (1.0f - saturation * f);
+            float t = brightness * (1.0f - (saturation * (1.0f - f)));
+            switch ((int) h) {
+                case 0:
+                    r = (int) (brightness * 255.0f + 0.5f);
+                    g = (int) (t * 255.0f + 0.5f);
+                    b = (int) (p * 255.0f + 0.5f);
+                    break;
+                case 1:
+                    r = (int) (q * 255.0f + 0.5f);
+                    g = (int) (brightness * 255.0f + 0.5f);
+                    b = (int) (p * 255.0f + 0.5f);
+                    break;
+                case 2:
+                    r = (int) (p * 255.0f + 0.5f);
+                    g = (int) (brightness * 255.0f + 0.5f);
+                    b = (int) (t * 255.0f + 0.5f);
+                    break;
+                case 3:
+                    r = (int) (p * 255.0f + 0.5f);
+                    g = (int) (q * 255.0f + 0.5f);
+                    b = (int) (brightness * 255.0f + 0.5f);
+                    break;
+                case 4:
+                    r = (int) (t * 255.0f + 0.5f);
+                    g = (int) (p * 255.0f + 0.5f);
+                    b = (int) (brightness * 255.0f + 0.5f);
+                    break;
+                case 5:
+                    r = (int) (brightness * 255.0f + 0.5f);
+                    g = (int) (p * 255.0f + 0.5f);
+                    b = (int) (q * 255.0f + 0.5f);
+                    break;
             }
-
-            if(H < 0) H += 1;
-            if(H > 1) H -= 1;
         }
+        return new Color(r, g, b, 1f);
+        // return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
+    }
 
-        double[] hsv = new double[3];
-        hsv[0] = H;
-        hsv[1] = S;
-        hsv[2] = V;
+    /**
+     * Copied from java.awt.Color class:
+     * Converts the components of a color, as specified by the default RGB
+     * model, to an equivalent set of values for hue, saturation, and
+     * brightness that are the three components of the HSB model.
+     * <p>
+     * If the <code>hsbvals</code> argument is <code>null</code>, then a
+     * new array is allocated to return the result. Otherwise, the method
+     * returns the array <code>hsbvals</code>, with the values put into
+     * that array.
+     * @param     r   the red component of the color
+     * @param     g   the green component of the color
+     * @param     b   the blue component of the color
+     * @return    an array of three elements containing the hue, saturation,
+     *                     and brightness (in that order), of the color with
+     *                     the indicated red, green, and blue components.
+     */
+    public static float[] RGBtoHSB(int r, int g, int b) {
+        float hue, saturation, brightness;
+        float[] hsbvals = new float[3];
+        int cmax = (r > g) ? r : g;
+        if (b > cmax) cmax = b;
+        int cmin = (r < g) ? r : g;
+        if (b < cmin) cmin = b;
 
-        return hsv;
+        brightness = ((float) cmax) / 255.0f;
+        if (cmax != 0)
+            saturation = ((float) (cmax - cmin)) / ((float) cmax);
+        else
+            saturation = 0;
+        if (saturation == 0)
+            hue = 0;
+        else {
+            float redc = ((float) (cmax - r)) / ((float) (cmax - cmin));
+            float greenc = ((float) (cmax - g)) / ((float) (cmax - cmin));
+            float bluec = ((float) (cmax - b)) / ((float) (cmax - cmin));
+            if (r == cmax)
+                hue = bluec - greenc;
+            else if (g == cmax)
+                hue = 2.0f + redc - bluec;
+            else
+                hue = 4.0f + greenc - redc;
+            hue = hue / 6.0f;
+            if (hue < 0)
+                hue = hue + 1.0f;
+        }
+        hsbvals[0] = hue;
+        hsbvals[1] = saturation;
+        hsbvals[2] = brightness;
+        return hsbvals;
     }
 }
